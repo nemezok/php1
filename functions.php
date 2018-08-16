@@ -1,4 +1,7 @@
 <?php
+global $DB;
+$DB = new DB();
+
 function get_time_intervals ()
 {
 	return array(

@@ -1,7 +1,7 @@
 <?php
 class DB
 {
-	public $conn = null;
+	protected $conn = null;
 	function __construct ()
 	{
 		try {
@@ -42,6 +42,41 @@ class DB
 			print "Error!: " . $e->getMessage() . "</br>";
 			return false;
 		}
+	}
+	function addInspection ($inspection)
+	{
+		$p1 = $this->conn->prepare('INSERT INTO inspections (realtor_id,object_id,date,time) VALUES (?,?,?,?)');
+		$p2 = $this->conn->prepare('INSERT INTO inspection_clients (inspection_id,client_id) VALUES (?,?)');
+		try {
+			$this->conn->beginTransaction();
+			$p1->execute( array(
+				$inspection['realtor_id'],
+				$inspection['object_id'],
+				$inspection['date'],
+				$inspection['time']
+			) );
+			$inspection['id'] = $this->conn->lastInsertId();
+			foreach($inspection['clients'] as $client_id)
+				$p2->execute( array($inspection['id'], $client_id) );
+			$this->conn->commit();
+		} catch(PDOExecption $e) {
+			$this->conn->rollback();
+			print "Error!: " . $e->getMessage() . "</br>";
+		}
+	}
+	function removeInspection ($inspection)
+	{
+		$p1 = $this->conn->prepare('DELETE FROM inspections WHERE ID = ?');
+		$p2 = $this->conn->prepare('DELETE FROM inspection_clients WHERE inspection_id = ?');
+		try {
+	        $this->conn->beginTransaction();
+	        $p1->execute( array($inspection['inspection_id']) );
+	        $p2->execute( array($inspection['inspection_id']) );
+	        $this->conn->commit();
+	    } catch(PDOExecption $e) {
+			$this->conn->rollback();
+	        print "Error!: " . $e->getMessage() . "</br>"; 
+	    }
 	}
 	function getObjects ($object_id = null)
 	{
@@ -93,6 +128,6 @@ class DB
 		}
 	}
 }
-global $DB;
-$DB = new DB();
+#global $DB;
+#$DB = new DB();
 ?>

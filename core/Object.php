@@ -1,5 +1,6 @@
 <?php
-class Object {
+class Object
+{
 	protected $ID = 0;
 	protected $address = '';
 	function __construct ($data)

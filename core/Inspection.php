@@ -1,4 +1,11 @@
 <?php
+/**
+* @author S
+* @copyright 2018
+* @param add
+* @param remove
+* @return Inspection Object
+*/
 class Inspection
 {
 	protected $ID = 0;
@@ -12,10 +19,11 @@ class Inspection
 
 	function __construct ($data)
 	{
-		$this->ID = $data['ID'];
-		$this->realtor_id = $data['realtor_id'];
+		$this->__set('ID', $data['ID']);
+		$this->__set('realtor_id', $data['realtor_id']);
+		$this->__set('object_id', $data['object_id']);
+
 		$this->realtor = $data['realtor'];
-		$this->object_id = $data['object_id'];
 		$this->address = $data['address'];
 		$this->date = $data['date'];
 		$this->time = $data['time'];
@@ -26,10 +34,9 @@ class Inspection
 	}
 	public function __get ($property)
 	{
-    	return $this->$property;
         switch ($property)
         {
-            case 'bar':
+            default:
                 return $this->$property;
         }
 
@@ -39,10 +46,13 @@ class Inspection
     {
         switch ($property)
         {
-            case 'bar':
-                $this->bar = $value;
+            case 'ID':
+            case 'realtor_id':
+            case 'object_id':
+                if(is_numeric($value)) $this->$property = $value;
                 break;
-            //etc.
+            default:
+            	$this->$property = $value;
         }
     }
 	static function add ($inspection)
@@ -82,6 +92,6 @@ class Inspection
 	    }
 	}
 }
-if(isset($_POST['add_inspection'])) Inspection::add($_POST);
-if(isset($_POST['remove_inspection'])) Inspection::remove($_POST);
+#if(isset($_POST['add_inspection'])) Inspection::add($_POST);
+#if(isset($_POST['remove_inspection'])) Inspection::remove($_POST);
 ?>
