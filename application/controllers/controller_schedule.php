@@ -1,5 +1,6 @@
 <?php
-class Controller_schedule extends Controller {
+class Controller_schedule extends Controller
+{
 	function __construct ()
 	{
 		$this->model = new Model_Schedule();

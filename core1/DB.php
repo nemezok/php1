@@ -1,14 +1,17 @@
 <?php
-class DB {
+class DB
+{
 	public $conn = null;
-	function __construct () {
+	function __construct ()
+	{
 		try {
 		    $this->conn = new PDO('mysql:dbname=test2;host=localhost', 'root', '');
 		} catch (PDOException $e) {
 		    echo 'Подключение не удалось: ' . $e->getMessage();
 		}
 	}
-	function getInspections ($object_id = null, $realtor_id = null) {
+	function getInspections ($object_id = null, $realtor_id = null)
+	{
 		$res = [];
 		try {
 			$select = $this->conn->query('
@@ -40,7 +43,8 @@ class DB {
 			return false;
 		}
 	}
-	function getObjects ($object_id = null) {
+	function getObjects ($object_id = null)
+	{
 		$res = [];
 		try {
 			$select = $this->conn->query('
@@ -56,7 +60,8 @@ class DB {
 			return false;
 		}
 	}
-	function getRealtors ($realtor_id = null) {
+	function getRealtors ($realtor_id = null)
+	{
 		$res = [];
 		try {
 			$select = $this->conn->query('
@@ -71,7 +76,8 @@ class DB {
 			return false;
 		}
 	}
-	function getClients ($client_id = null) {
+	function getClients ($client_id = null)
+	{
 		$res = [];
 		try {
 			$select = $this->conn->query('

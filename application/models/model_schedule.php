@@ -1,5 +1,6 @@
 <?php
-class Model_Schedule extends Model {
+class Model_Schedule extends Model
+{
 	protected $data = [
 		'object_list' => [],
 		'realtor_list' => [],
@@ -9,7 +10,8 @@ class Model_Schedule extends Model {
 		'current_object_inspections' => [],
 		'current_realtor_inspections' => [],
 	];
-	public function __construct () {
+	public function __construct ()
+	{
 		global $DB;
 
 		foreach($DB->getObjects() as $o) $this->data['object_list'][$o['ID']] = new Object($o);
@@ -28,7 +30,8 @@ class Model_Schedule extends Model {
 				$this->data['current_realtor_inspections'][$insp['date']][$insp['time']] = new Inspection($insp);
 		}
 	}
-	public function get_data () {
+	public function get_data ()
+	{
 		return $this->data;
 	}
 }

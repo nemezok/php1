@@ -1,7 +1,8 @@
 <?php
 class Route
 {
-	static function start () {
+	static function start ()
+	{
 		// контроллер и действие по умолчанию
 		$controller_name = 'Main';
 		$action_name = 'index';
@@ -27,7 +28,8 @@ class Route
 		else Route::ErrorPage404();
 	}
 
-	function ErrorPage404 () {
+	function ErrorPage404 ()
+	{
         $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('HTTP/1.1 404 Not Found');
 		header("Status: 404 Not Found");

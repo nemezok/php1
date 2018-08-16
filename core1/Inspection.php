@@ -1,5 +1,6 @@
 <?php
-class Inspection {
+class Inspection
+{
 	protected $ID = 0;
 	protected $realtor_id = 0;
 	protected $realtor = '';
@@ -9,7 +10,8 @@ class Inspection {
 	protected $time = 0;
 	protected $clients = '';
 
-	function __construct ($data) {
+	function __construct ($data)
+	{
 		$this->ID = $data['ID'];
 		$this->realtor_id = $data['realtor_id'];
 		$this->realtor = $data['realtor'];
@@ -22,7 +24,8 @@ class Inspection {
 			$this->clients[] = new Client(array('name'=>$c[0], 'phone'=>$c[1]));
 		}
 	}
-	public function __get ($property) {
+	public function __get ($property)
+	{
     	return $this->$property;
         switch ($property)
         {
@@ -32,7 +35,8 @@ class Inspection {
 
     }
  
-    public function __set ($property, $value) {
+    public function __set ($property, $value)
+    {
         switch ($property)
         {
             case 'bar':
@@ -41,7 +45,8 @@ class Inspection {
             //etc.
         }
     }
-	static function add ($inspection) {
+	static function add ($inspection)
+	{
 		global $DB;
 		$p1 = $DB->conn->prepare('INSERT INTO inspections (realtor_id,object_id,date,time) VALUES (?,?,?,?)');
 		$p2 = $DB->conn->prepare('INSERT INTO inspection_clients (inspection_id,client_id) VALUES (?,?)');
@@ -62,7 +67,8 @@ class Inspection {
 			print "Error!: " . $e->getMessage() . "</br>";
 		}
 	}
-	static function remove ($inspection) {
+	static function remove ($inspection)
+	{
 		global $DB;
 		$p1 = $DB->conn->prepare('DELETE FROM inspections WHERE ID = ?');
 		$p2 = $DB->conn->prepare('DELETE FROM inspection_clients WHERE inspection_id = ?');

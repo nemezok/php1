@@ -1,5 +1,6 @@
 <?php
-function get_time_intervals () {
+function get_time_intervals ()
+{
 	return array(
 		'',
 		'9:00 - 10:00',
